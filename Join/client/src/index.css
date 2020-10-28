@@ -1,0 +1,304 @@
+
+p {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.background_svgmain {
+    background-image: url("bgrnd.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.ChannelsDesigned {
+    background: #2f3236;
+    border-bottom: #1a1c20;
+    border-bottom-width: 2px;
+    border-bottom: solid;
+    min-height: 5vh;
+}
+
+.TitleFormInput {
+    font-size: 24px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 20px
+}
+
+p.clip {
+    word-wrap: break-word;
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+}
+
+p.clipChannel {
+    white-space: nowrap; /* Отменяем перенос текста */
+    overflow: hidden; /* Обрезаем содержимое */
+    text-overflow: ellipsis; /* Многоточие */
+}
+
+.FormInput {
+    background: #303339;
+    color: #c3c5c8;
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding: 6px;
+
+}
+
+.AlertErrorMessage {
+    color: #f04747;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+#inputSearchRooms,
+#inputSearchUsers {
+    border: none !important;
+}
+
+.HoverMyBtnSvgB9:hover {
+    fill: #cdcfd2 !important;
+    transform: rotate(360deg) !important;
+    transition: 8s linear;
+}
+
+.modal-content {
+    border-radius: 30px !important;
+}
+
+input {
+    border: 1px solid #000 !important;
+}
+
+.submitButton {
+    background: #7289da;
+    font-weight: 500
+}
+
+.submitButton:hover {
+    background: #677bc3 !important;
+}
+
+.submitButton:disabled {
+    background: rgba(103, 123, 195, 0.65) !important;
+}
+
+.LabelForInputForm {
+    color: #8e9297;
+    font-size: 12px
+}
+
+.SettingsChannelRadio{
+    display: none;
+}
+
+.PLinkToForm {
+    color: #677bc3;
+    font-size: 13px;
+    font-weight: 500
+}
+
+.RoomsChatsElement:hover {
+    background: rgba(79, 84, 92, 0.32);
+}
+
+.ChannelsWindowResize {
+    max-height: 95vh;
+    resize: none;
+    overflow: auto;
+}
+
+.ChannelContainer {
+    resize: none;
+    overflow: auto;
+}
+
+.MessageItem:hover {
+    background: rgba(4, 4, 5, 0.07) !important;
+}
+
+.HeaderMsgComponent {
+    background: #33363d;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    min-height: 5vh;
+}
+
+
+.BodyMessageComponent {
+    background: #33363d !important;
+    color: #5d6167 !important;
+    overflow: auto !important;
+    max-height: 88vh !important;
+    list-style-position: inside !important;
+}
+
+.TextAreaMessage {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: auto;
+    color: #dcddde;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+
+.ModalWindowFooter {
+    background: #2f3136;
+    border-bottom-left-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.ModalWindowBody {
+    background: #2f3136;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    text-align: center;
+}
+
+.ModalWindowBodyCreateChannelInput {
+    boxShadow: 0px 0px 42px -2px rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: #c3c5c8;
+    border-right: 5px;
+    height: 70px;
+    width: 95%;
+    font-size: 22px;
+    font-weight: 500;
+    border: none !important;
+}
+
+.ButtonDelUserChannel {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #c3c5c8;
+    font-size: 22px;
+}
+
+.ButtonDelUserChannel:active {
+    outline: none !important;
+    background: rgba(50,167,115,0.1);
+    border-radius: 100%;
+    transition: 0.1s linear;
+}
+.modal-body{
+}
+
+.modal-footer{
+    border-top: 5px solid #474951 !important;
+}
+
+.ButtonDelUserChannel:focus {
+    outline: none !important;
+}
+
+
+.ButtonDelUserChannel:hover {
+    color: #32a773;
+    transition: 0.5s linear;
+
+}
+.LiUserPartitionChannel{
+    background: rgba(71,73,81,0.1);
+    margin: 5px 0;
+}
+
+.LiUserPartitionChannel:hover{
+    background: rgba(71,73,81,0.4);
+    margin: 5px 0;
+    transition: 0.6s linear;
+}
+
+.LiUserPartitionChannel:checked{
+    background: #000000;
+}
+
+.ModalWindowSettingButton {
+    outline: none !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+.ModalWindowFooterButton {
+    background: #7289DA !important;
+    width: 30% !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
+.UlUserForSearch {
+    overflow: auto;
+    max-height: 40vh;
+}
+
+.PSearchFriendError {
+    color: #c3c5c8;
+    font-size: 22px;
+    padding-bottom: 5px;
+}
+
+.PSearchFriendBDNotification {
+    color: #41B581;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.ChannelNameSettings{
+    color: #41B581;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.inputSearchUsers {
+    height: 4vh;
+    font-weight: 500;
+    color: #c3c5c8;
+    borderRadius: 5px;
+    border: none !important;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track-piece {
+    background: rgba(51, 54, 61, 1);
+
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 10px;
+    background: rgba(32, 34, 37, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:vertical:hover {
+    background: rgba(32, 34, 37, 0.8);
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    height: 10px;
+    background: rgba(32, 34, 37, 0.5);;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+    background: rgba(32, 34, 37, 0.8);;
+}
+
