@@ -90,7 +90,7 @@ input {
     font-size: 12px
 }
 
-.SettingsChannelRadio{
+.SettingsChannelRadio {
     display: none;
 }
 
@@ -135,17 +135,21 @@ input {
     list-style-position: inside !important;
 }
 
+
+
 .TextAreaMessage {
-    width: 100%;
-    height: 100%;
     background-color: transparent;
     border: none;
     outline: none;
-    resize: none;
-    overflow: auto;
+    width: 90%;
+    padding: 0 30px;
+    min-height: 25px;
+    max-height: 50px;
     color: #dcddde;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 15px;
+    overflow: hidden;
+    line-height: 1.4;
 }
 
 
@@ -189,14 +193,12 @@ input {
 
 .ButtonDelUserChannel:active {
     outline: none !important;
-    background: rgba(50,167,115,0.1);
+    background: rgba(50, 167, 115, 0.1);
     border-radius: 100%;
     transition: 0.1s linear;
 }
-.modal-body{
-}
 
-.modal-footer{
+.modal-footer {
     border-top: 5px solid #474951 !important;
 }
 
@@ -210,18 +212,19 @@ input {
     transition: 0.5s linear;
 
 }
-.LiUserPartitionChannel{
-    background: rgba(71,73,81,0.1);
+
+.LiUserPartitionChannel {
+    background: rgba(71, 73, 81, 0.1);
     margin: 5px 0;
 }
 
-.LiUserPartitionChannel:hover{
-    background: rgba(71,73,81,0.4);
+.LiUserPartitionChannel:hover {
+    background: rgba(71, 73, 81, 0.4);
     margin: 5px 0;
     transition: 0.6s linear;
 }
 
-.LiUserPartitionChannel:checked{
+.LiUserPartitionChannel:checked {
     background: #000000;
 }
 
@@ -255,7 +258,7 @@ input {
     padding-bottom: 5px;
 }
 
-.ChannelNameSettings{
+.ChannelNameSettings {
     color: #41B581;
     font-size: 20px;
     font-weight: 500;
@@ -269,6 +272,17 @@ input {
     border: none !important;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+}
+
+
+.bi-file-earmark-arrow-up:hover{
+    fill: #32a773;
+    transition: 0.4s ;
+}
+
+.bi-cursor:hover {
+fill: #32a773;
+transition: 0.4s ;
 }
 
 ::-webkit-scrollbar {

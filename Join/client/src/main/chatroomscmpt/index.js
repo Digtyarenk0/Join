@@ -59,7 +59,7 @@ const ChannelMainContainer = () => {
                 </div>
                 <CChannels/>
             </div>
-            <div className="d-flex flex-column h-100 m-0 p-0 ChannelContainer"
+            <div className="d-flex flex-column h-100 w-100 m-0 p-0 ChannelContainer"
                  style={{backgroundColor: "#33363d"}}>
                 <Route path="/join/:id/:name" component={Channel} exact/>
             </div>
