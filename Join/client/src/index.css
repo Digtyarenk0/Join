@@ -136,7 +136,6 @@ input {
 }
 
 
-
 .TextAreaMessage {
     background-color: transparent;
     border: none;
@@ -258,6 +257,33 @@ input {
     padding-bottom: 5px;
 }
 
+.TitlePshUserSetting {
+    color: #b0b2b3;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.ContentUserSettingPsh {
+    color: #d5d7db;
+    font-size: 16px;
+}
+
+.StatusUserOnline {
+    color: #41B581;
+}
+
+.StatusUserOffline {
+    color: #474951;
+}
+
+.modal-dialog {
+    background: transparent;
+}
+
+.modal-content {
+    background: transparent;
+}
+
 .ChannelNameSettings {
     color: #41B581;
     font-size: 20px;
@@ -275,14 +301,14 @@ input {
 }
 
 
-.bi-file-earmark-arrow-up:hover{
+.bi-file-earmark-arrow-up:hover {
     fill: #32a773;
-    transition: 0.4s ;
+    transition: 0.4s;
 }
 
 .bi-cursor:hover {
-fill: #32a773;
-transition: 0.4s ;
+    fill: #32a773;
+    transition: 0.4s;
 }
 
 ::-webkit-scrollbar {

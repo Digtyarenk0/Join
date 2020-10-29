@@ -1,11 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {actionLogout} from '../../redux/user/actions';
+import IndexModalWindowUser from "./modalWindow/indexModalWindow";
 
 
-const UserInfo = ({username}) => <p class="p-0 m-0 mt-2 text-truncate text-center"
-                                    style={{color: "#43b581", fontWeight: "500"}}>{username || 'anon'}</p>
+const UserInfo = ({username}) => {
+    const [userSettingShow, setUserSettingShow] = useState(false);
+
+    const UserSettingHandleShow = () => {
+        if (userSettingShow) {
+            setUserSettingShow(false)
+            setTimeout(() => setUserSettingShow(true), 50)
+        } else {
+            setUserSettingShow(true);
+        }
+    }
+
+    return (<>
+            <button onClick={UserSettingHandleShow}
+                    style={{background: "transparent", border: "none", outline: "none"}}>
+                <p className="p-0 m-0 mt-2 text-truncate text-center"
+                   style={{color: "#43b581", fontWeight: "500"}}>{username || 'anon'}
+                </p>
+            </button>
+            {userSettingShow ?  <IndexModalWindowUser showSettingUser={userSettingShow}/> : "" }
+            {/*<IndexModalWindowUser showSettingUser={userSettingShow}/>*/}
+        </>
+    )
+}
+
+
 const ConnectedUserInfo = connect(state => ({username: state.user && state.user.user && state.user.user.username}))(UserInfo)
 
 
@@ -51,7 +76,6 @@ const IndexMenu = () => {
                 <Rooms/>
             </div>
             <div className="text-center mb-2">
-                f
                 <CLogoutButton/>
             </div>
         </div>

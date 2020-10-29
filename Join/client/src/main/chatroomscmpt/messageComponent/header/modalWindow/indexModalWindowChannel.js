@@ -14,7 +14,6 @@ const WindowSettingsChannel = ({showSetting, channelName, users}) => {
         setChannelSettingShow(false)
     }
 
-
     useEffect(() => {
         if (showSetting) {
             setChannelSettingShow(true)

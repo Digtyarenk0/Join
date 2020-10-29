@@ -23,7 +23,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "path-to-regexp": "^6.2.0",
-    "react-dropzone": "^11.2.0",
+    "react-dropzone": "^11.2.2",
     "react-router": "^5.2.0",
     "react-token-auth": "^1.1.7",
     "sequelize": "^6.3.5",

@@ -9,7 +9,10 @@ const Friend = require('./friend')
 const Message = require('./message');
 const Token = require('./token')
 const authToken = require('./authToken')
+const Media = require('./media')
 const UpdateTokens = require('./authToken')
+const uploadPath = `${__dirname}/public/media/`;
+const upload = require('multer')({dest: uploadPath})
 
 
 module.exports = {
@@ -113,12 +116,13 @@ module.exports = {
                 if (!check) throw new Error('Вы не состоите в этом чате')
                 return check
             })
-        console.log(idChannel,idUser)
+        console.log(idChannel, idUser)
         return await UserToChat.destroy({where: {userId: idUser, chatId: idChannel}}).then(del => {
             if (!del) throw new Error("Произовшла ошибка")
             return {
                 text: "Пользовтаель был удален из канала",
-                content: idUser}
+                content: idUser
+            }
         })
 
     },
@@ -154,6 +158,36 @@ module.exports = {
         return msg
     }
     ,
+    async postMessageMedia({id, url, channelId}, {user}){
+        console.log(id,url,channelId)
+        // if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        // await UserToChat.findOne({
+        //     where: {
+        //         [Op.and]: [{userId: user.id},
+        //             {chatId: msgMediaInfo.chatId}]
+        //     }
+        // }).then(check => {
+        //     if (!check) throw new Error('Вы не состоите в этом чате')
+        // })
+        let msg = await user.createMessage({
+            chatId: channelId,
+            content: url
+        })
+        console.log(msg)
+        let updMedia = await Media.findByPk(id).then(async media => {
+            if (!media) throw new Error('Ошибка загрузки')
+            console.log("FAFA",media)
+            media.messageId = msg.id
+            await media.save()
+        })
+        console.log("Lols",updMedia)
+        return {
+            idMsg: msg.id,
+            url:  url,
+            idMedia: id
+        }
+    }
+    ,
     async upsertMessage({message}, {user}) {
         if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
         if (!message.id) {
@@ -168,6 +202,17 @@ module.exports = {
                 throw new Error('Мамкин Хакир')
             }
         }
+    },
+    async uploadUserMedia({file}) {
+        // upload.
+        // const {originalname, filename} = file
+        // console.log(originalname, filename)
+        // let img = await Media.create({urlFilename: filename, filename: originalname})
+        // console.log(img)
+        // return {
+        //     id: img.id,
+        //     url: `media/${img.urlFilename}`
+        // }
     }
     ,
     async getMessagesByChat({id}, {user}) {
@@ -244,7 +289,7 @@ module.exports = {
         return result
     }
     ,
-    async getUsersByChannel({id},{user}){
+    async getUsersByChannel({id}, {user}) {
         if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
         return await UserToChat.findAll({where: {chatId: id}}).then(async arrUserId => {
                 return arrUserId.map(async item => {

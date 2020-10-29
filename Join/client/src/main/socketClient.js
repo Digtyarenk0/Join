@@ -3,9 +3,18 @@ import io from 'socket.io-client';
 const socket = io.connect();
 const socketPostUserData = (data) => socket.emit("UserDataInf", data)
 
-
 function socketMyChannelsParticipation(data) {
     return socket.emit('channelsUserParticipation', data)
+}
+
+function socketStatusUser(){
+    socket.on("connectionStatus",data => {
+        if(data){
+            document.querySelector('.StatusUser').style.color = "#41B581"
+        }else {
+            document.querySelector('.StatusUser').style.color = "#474951"
+        }
+    })
 }
 
 function socketJoinToChannel() {
@@ -55,6 +64,7 @@ function socketSendMessage(data) {
 export {
     socketPostUserData,
     socketMyChannelsParticipation,
+    socketStatusUser,
     socketJoinToChannel,
     socketSendMessage,
     socketNewMSGWait,

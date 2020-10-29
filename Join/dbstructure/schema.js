@@ -24,6 +24,7 @@ const schema = buildSchema(`
         addUserToChat(chat: InsertUserToChat): String
         deleteUserOfChannel(idChannel: String,idUser: String): Notification
         postMessage(message: MessageInput): Message
+        postMessageMedia(id: String, url: String, channelId: String): Media
         upsertMessage(message: upsertMessage): Message
     }
     
@@ -69,6 +70,12 @@ const schema = buildSchema(`
        password: String
     }
     
+    type Media {
+    idMsg: String
+    url: String
+    idMedia: String
+    }
+    
     input ChatCreateInput{
       name: String
     }
@@ -79,6 +86,11 @@ const schema = buildSchema(`
     }
     
     input MessageInput {
+        chatId: ID
+        content: String
+    }
+    
+     input MessageInputMedia {
         chatId: ID
         content: String
     }

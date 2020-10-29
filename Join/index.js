@@ -6,6 +6,9 @@ const io = require('socket.io').listen(server);
 const UpdateTokens = require('./dbstructure/authToken')
 const bodyParser = require('body-parser')
 
+const uploadPath = `${__dirname}/public/media/`;
+const upload  = require('multer')({ dest: uploadPath })
+
 const sequelize = require('./dbstructure/urldb');
 const rootResolvers = require('./dbstructure/rootresolvers')
 const schema = require('./dbstructure/schema')
@@ -15,12 +18,13 @@ const Chat = require('./dbstructure/chat');
 const UserToChat = require('./dbstructure/usertochat')
 const Friend = require('./dbstructure/friend')
 const Message = require('./dbstructure/message');
+const Media = require('./dbstructure/media');
 const secret = require('./dbstructure/secret')
 const express = require("express");
+const multer = require("multer");
 
 
-Message.belongsTo(User)
-User.hasMany(Message)
+
 
 User.hasMany(Friend, {as: "user"})
 Friend.belongsTo(User, {foreignKey: "userId", as: "user"})
@@ -29,20 +33,38 @@ Friend.belongsTo(User, {foreignKey: "userId", as: "user"})
 User.hasMany(Friend, {as: "Friend"})
 Friend.belongsTo(User, {foreignKey: "friendId", as: "friend"})
 
+// User.hasOne(Media, {onDelete: "cascade"})
+
+Message.belongsTo(User)
+User.hasMany(Message)
+
 Message.belongsTo(Chat)
 Chat.hasMany(Message, {onDelete: "cascade"})
+
+Message.hasMany(Media)
+Media.belongsTo(Message)
 
 Chat.belongsToMany(User, {through: UserToChat});
 User.belongsToMany(Chat, {through: UserToChat});
 
+
 // Отслеживание url адреса и отображение нужной HTML страницы
-// app.get('/*', function(req, res) {
-//     req.sendFile(__dirname + '/client/public/index.html');
-// });
+app.get('/', function(request, respons) {
+    respons.sendFile(__dirname + '/client/public/index.html');
+});
+
+app.post('/upload', upload.single('photo'), async (req, res, next) => {
+    console.log(req.file)
+    console.log("AUF")
+    const {originalname, filename} = req.file
+    console.log(originalname,filename)
+    let img = await Media.create({urlFilename: filename, filename: originalname})
+    res.send(JSON.stringify({id: img.id, url: `media/${img.urlFilename}`}))
+})
 
 connections = [];
-//
 io.sockets.on('connection', (socket) => {
+    socket.emit("connectionStatus",true)
     console.log("Успешное соединение");
     connections.push(socket);
 
@@ -85,6 +107,7 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('disconnect', function (data) {
+        socket.emit('connectionStatus', false)
         connections.splice(connections.indexOf(socket), 1);
         console.log("Отключились");
     });
@@ -123,7 +146,6 @@ const refreshTokens = (req, res) => {
 
 }
 
-// app.use(express.static(__dirname + '/public'));
 
 app.post('/refresh-tokens', bodyParser.json(), refreshTokens)
 
@@ -155,12 +177,16 @@ const getUserByRequest = async (req) => {
     }
 }
 
-app.use('/graphql', graphqlHTTP(async (req, res) => ({
+app.use('/graphql',graphqlHTTP(async (req, res) => ({
     schema,
     rootValue: rootResolvers,
     graphiql: true,
-    context: {user: await getUserByRequest(req)} //сделать юзера из токена:
+    context: {user: await getUserByRequest(req)}
 })));
+
+
+app.use(express.static('public'));
+
 
 ;(async () => {
     await sequelize.sync()
