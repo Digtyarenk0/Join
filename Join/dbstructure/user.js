@@ -5,6 +5,9 @@ class User extends Sequelize.Model {
     get messages() {
         return this.getMessages()
     }
+    get media(){
+        return this.getMedia()
+    }
 }
 
 User.init({

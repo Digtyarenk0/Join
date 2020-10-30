@@ -30,7 +30,7 @@ export const userReducer = (state = initState, action) => {
                     user = decode(tokens.accessToken)
                     access = true
                     return {
-                        user: {id: user.userId, username: user.username},
+                        user: {id: user.userId, username: user.username, ico: user.ico},
                         access: access
                     }
                 }

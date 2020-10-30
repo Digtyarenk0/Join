@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 import {actionLogout} from "../../../redux/user/actions";
 import checkNested from "../../../checkNested";
 import {socketStatusUser} from "../../socketClient";
-
+import DropZoneUserSetIco from "./DropZoneUserSetIco";
+import DropZoneUpdateUserIco from "./DropZoneUpdateUserIco";
 
 const LogoutButton = ({actions}) =>
     (<Link to="/join">
@@ -19,7 +20,8 @@ const LogoutButton = ({actions}) =>
 
 const CLogoutButton = connect(null, {actions: actionLogout})(LogoutButton)
 
-const IndexModalWindowUser = ({showSettingUser,user}) => {
+
+const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
     const [userSettingShow, setUserSettingShow] = useState(false);
 
     const SettingChannelHandleClose = () => {
@@ -49,13 +51,13 @@ const IndexModalWindowUser = ({showSettingUser,user}) => {
                 <div className="d-flex mt-3"
                      style={{background: "#292b2f", borderRadius: "8px", border: "1px solid #000"}}>
                     <div className="d-flex w-25 justify-content-center align-items-center">
-                        <img src="" alt="ava"/>
+                        {user && user.ico && user.ico.urlFilename ? <DropZoneUpdateUserIco/> : <DropZoneUserSetIco/>}
                     </div>
                     <div>
                         <div className="mt-2 mb-2 text-left">
                             <p className="TitlePshUserSetting">ИМЯ ПОЛЬЗОВАТЕЛЯ</p>
                             <div>
-                                <p className="ContentUserSettingPsh">{user ? user.username + "#" + user.id  : ""}</p>
+                                <p className="ContentUserSettingPsh">{user ? user.username + "#" + user.id : ""}</p>
                             </div>
                         </div>
                         <div className="mt-2 mb-2  text-left">
@@ -86,10 +88,10 @@ const IndexModalWindowUser = ({showSettingUser,user}) => {
     )
 }
 
-const mapChannelInfo = state => {
+const mapUserInfo = state => {
     return {
         user: checkNested(state, 'user', 'user')
     }
 }
 
-export default connect(mapChannelInfo, null)(IndexModalWindowUser)
+export default connect(mapUserInfo, null)(IndexModalWindowUser)

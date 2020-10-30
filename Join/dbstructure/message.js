@@ -14,6 +14,11 @@ Message.init({
         unique: false,
         allowNull: false
     },
+    type: {
+        type: Sequelize.ENUM,
+        values: ['text','photo'],
+        allowNull: false
+    }
 }, {sequelize, modelName: 'message'});
 
 module.exports = Message

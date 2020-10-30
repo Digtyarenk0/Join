@@ -10,7 +10,6 @@ const actionsLog = ({login, password}) => async dispatch => {
     const tokens = await dispatch(actionPromise(mutationLogin({login, password}), "login"))
     if (tokens && tokens.data && tokens.data.login && tokens.data.login.accessToken && tokens.data.login.refreshToken) {
         const user = await dispatch(actionLogin(tokens.data.login))
-        console.log(user)
         return user
     }
     return tokens
@@ -77,7 +76,6 @@ const Login = ({onLogin, checkToken, errorbd = '', loader,access}) => {
 }
 
 const mapStateToProps = state => {
-    console.log(state)
     return {
         errorbd: (state && state.stage && state.stage.login && state.stage.login.payload &&
             state.stage.login.payload.errors &&

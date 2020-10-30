@@ -9,7 +9,13 @@ export const getMessagesByChannel = async ({idChannel}) => {
                         createdAt
                         user{
                           username
+                          media{
+                          id
+                          filename
+                          urlFilename
                         }
+                        }
+                        type
                       }
                     }`, `{"id": \"${idChannel}\"}`)
 }

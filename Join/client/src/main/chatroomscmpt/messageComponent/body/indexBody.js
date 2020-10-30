@@ -6,24 +6,67 @@ import {actionPromiseChosenChannelMessages} from "../../../../redux/useChannelMe
 import {getMessagesByChannel} from "./actionGetMessagesByChannel";
 import {socketMyChannelsParticipation, socketJoinToChannel,socketNewMSGWait} from '../../../socketClient'
 
-const MessageItem = ({message: {id, content, createdAt, user: {id: userId, username}}}, index) => {
+const MessageItem = ({message: {id, content, createdAt, user: {id: userId, username, media}, type}}, index) => {
+    media = media && media[0]
     createdAt === "Загрузка..." ? createdAt = "" : createdAt = new Date(Number(createdAt)).getHours() + ":" + new Date(Number(createdAt)).getMinutes()
-    return (<li class="p-0 m-0 " style={{listStyle: "none"}} key={index}>
-        <div className="m-1 d-flex MessageItem" style={{background: "#36393f", borderRadius: "15px"}}>
-            <div className="m-1"><img src={deffaultAvatar} alt="avatar" style={{height: "25px"}}/></div>
-            <div className="d-flex flex-column">
-                <div className="d-flex m-1 p-0"><p class="mb-0" style={{color: "#43b581"}}>{username}</p><p
-                    className="mb-0 p-1 pb-0"
-                    style={{fontSize: "12px"}}>{createdAt}</p>
-                </div>
-                <div className="m-0 ml-1 p-0 pb-1 text-left"><p class="m-0 clip" style={{
-                    color: "#b9bbbe",
-                    maxWidth: "42vw"
-                }}>{content}</p>
+    if(type == "text"){
+        return (<li class="p-0 m-0 " style={{listStyle: "none"}} key={index}>
+            <div className="m-1 d-flex MessageItem" style={{background: "#36393f", borderRadius: "15px"}}>
+                <div className="m-1"><img src={"http://localhost:4000/media/" + media.urlFilename} alt="avatar" style={{height: "25px",width: "25px", borderRadius: "50%"}}/></div>
+                <div className="d-flex flex-column">
+                    <div className="d-flex m-1 p-0"><p class="mb-0" style={{color: "#43b581"}}>{username}</p><p
+                        className="mb-0 p-1 pb-0"
+                        style={{fontSize: "12px"}}>{createdAt}</p>
+                    </div>
+                    <div className="m-0 ml-1 p-0 pb-1 text-left"><p class="m-0 clip" style={{
+                        color: "#b9bbbe",
+                        maxWidth: "42vw"
+                    }}>{content}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </li>)
+        </li>)
+    }
+    if (type == "photo"){
+        return (
+            <li class="p-0 m-0 " style={{listStyle: "none"}} key={index}>
+                <div className="m-1 d-flex MessageItem" style={{background: "#36393f", borderRadius: "15px"}}>
+                    <div className="m-1"><img src={"http://localhost:4000/media/" + media.urlFilename} alt="avatar" style={{height: "25px"}}/></div>
+                    <div className="d-flex flex-column">
+                        <div className="d-flex m-1 p-0"><p class="mb-0" style={{color: "#43b581"}}>{username}</p><p
+                            className="mb-0 p-1 pb-0"
+                            style={{fontSize: "12px"}}>{createdAt}</p>
+                        </div>
+                        <div className="m-0 ml-1 p-0 pb-1 text-left">
+                            <a href={content}>
+                                <img style={{maxHeight: "150px"}} src={"http://localhost:4000/" + content} alt=""/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        )
+    }
+    return (
+        <li className="p-0 m-0 " style={{listStyle: "none"}} key={index}>
+            <div className="m-1 d-flex MessageItem" style={{background: "#36393f", borderRadius: "15px"}}>
+                <div className="m-1"><img src={deffaultAvatar} alt="avatar" style={{height: "25px"}}/></div>
+                <div className="d-flex flex-column">
+                    <div className="d-flex m-1 p-0"><p className="mb-0" style={{color: "#43b581"}}>*</p><p
+                        className="mb-0 p-1 pb-0"
+                        style={{fontSize: "12px"}}></p>
+                    </div>
+                    <div className="m-0 ml-1 p-0 pb-1 text-left">
+                        <p className="m-0 clip" style={{
+                            color: "#b9bbbe",
+                            maxWidth: "42vw"
+                        }}>Данные об этом сообщении повреждены</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    )
 }
 
 const ChannelHistory = ({channelHistory, checkNewMessage, idChannel, getMSG}) => {
@@ -31,7 +74,7 @@ const ChannelHistory = ({channelHistory, checkNewMessage, idChannel, getMSG}) =>
         id: "0", content: "Загрузка...", createdAt: "Загрузка...",
         user: {id: "0", username: "Загрузка...."}
     }])
-    const [status, setStatus] = useState('')
+    // const [status, setStatus] = useState('')
     useEffect( () => {
                  socketJoinToChannel()
     }, [idChannel])
@@ -41,9 +84,9 @@ const ChannelHistory = ({channelHistory, checkNewMessage, idChannel, getMSG}) =>
         if (idChannel) socketMyChannelsParticipation({idChannel})
     }, [idChannel])
 
-        useEffect(() => {
-        // socketMyChannelsParticipation({idChannel})
-    }, [checkNewMessage])
+    //     useEffect(() => {
+    //     // socketMyChannelsParticipation({idChannel})
+    // }, [checkNewMessage])
 
     useEffect(() => {
             if (idChannel) getMSG({idChannel})

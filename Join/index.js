@@ -24,8 +24,6 @@ const express = require("express");
 const multer = require("multer");
 
 
-
-
 User.hasMany(Friend, {as: "user"})
 Friend.belongsTo(User, {foreignKey: "userId", as: "user"})
 
@@ -33,7 +31,8 @@ Friend.belongsTo(User, {foreignKey: "userId", as: "user"})
 User.hasMany(Friend, {as: "Friend"})
 Friend.belongsTo(User, {foreignKey: "friendId", as: "friend"})
 
-// User.hasOne(Media, {onDelete: "cascade"})
+Media.belongsTo(User)
+User.hasMany(Media)
 
 Message.belongsTo(User)
 User.hasMany(Message)
@@ -58,8 +57,8 @@ app.post('/upload', upload.single('photo'), async (req, res, next) => {
     console.log("AUF")
     const {originalname, filename} = req.file
     console.log(originalname,filename)
-    let img = await Media.create({urlFilename: filename, filename: originalname})
-    res.send(JSON.stringify({id: img.id, url: `media/${img.urlFilename}`}))
+    // let img = await Media.create({urlFilename: filename, filename: originalname})
+    res.send(JSON.stringify({urlFilename: filename, filename: originalname}))
 })
 
 connections = [];

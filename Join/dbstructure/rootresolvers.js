@@ -153,39 +153,33 @@ module.exports = {
         })
         let msg = await user.createMessage({
             chatId: message.chatId,
-            content: message.content
+            content: message.content,
+            type: "text"
         })
         return msg
     }
     ,
-    async postMessageMedia({id, url, channelId}, {user}){
-        console.log(id,url,channelId)
-        // if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
-        // await UserToChat.findOne({
-        //     where: {
-        //         [Op.and]: [{userId: user.id},
-        //             {chatId: msgMediaInfo.chatId}]
-        //     }
-        // }).then(check => {
-        //     if (!check) throw new Error('Вы не состоите в этом чате')
-        // })
+    async postMessageMedia({id, url, channelId}, {user}) {
+        if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        await UserToChat.findOne({
+            where: {
+                [Op.and]: [{userId: user.id},
+                    {chatId: channelId}]
+            }
+        }).then(check => {
+            if (!check) throw new Error('Вы не состоите в этом чате')
+        })
         let msg = await user.createMessage({
             chatId: channelId,
-            content: url
+            content: url,
+            type: "photo"
         })
-        console.log(msg)
         let updMedia = await Media.findByPk(id).then(async media => {
             if (!media) throw new Error('Ошибка загрузки')
-            console.log("FAFA",media)
             media.messageId = msg.id
-            await media.save()
+            return await media.save()
         })
-        console.log("Lols",updMedia)
-        return {
-            idMsg: msg.id,
-            url:  url,
-            idMedia: id
-        }
+        return msg
     }
     ,
     async upsertMessage({message}, {user}) {
@@ -203,16 +197,22 @@ module.exports = {
             }
         }
     },
-    async uploadUserMedia({file}) {
-        // upload.
-        // const {originalname, filename} = file
-        // console.log(originalname, filename)
-        // let img = await Media.create({urlFilename: filename, filename: originalname})
-        // console.log(img)
-        // return {
-        //     id: img.id,
-        //     url: `media/${img.urlFilename}`
-        // }
+    async uploadUserIco({originalFilename, filename}, {user}) {
+        console.log(originalFilename, filename)
+        // if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        return await Media.create({
+            urlFilename: filename,
+            filename: originalFilename,
+            userId: user.id
+        })
+    },
+    async updateUserIco({originalFilename, filename}, {user}) {
+        if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        return Media.findOne({where: {userId: user.id}}).then(async userRecord => {
+            userRecord.urlFilename = filename,
+            userRecord.filename = originalFilename
+            return await userRecord.save()
+        })
     }
     ,
     async getMessagesByChat({id}, {user}) {
@@ -298,7 +298,8 @@ module.exports = {
             }
         )
 
-    },
+    }
+    ,
     async getFriends({username}, {user}) {
         if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
         return await Friend.findAll({where: {userId: user.id}}).then(async data => {
@@ -311,11 +312,13 @@ module.exports = {
     }
     ,
     async getUser({id}) {
-        let user = await User.findByPk(id)
-        return user
+        return await User.findByPk(id)
     }
     ,
-
+    async getMedia() {
+        return await Media.findAll()
+    }
+    ,
     async getMessage({id}) {
         return await Message.findByPk(id)
     }

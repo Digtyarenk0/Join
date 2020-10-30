@@ -4,6 +4,7 @@ const secret = require('./secret')
 
 const Token = require('./token')
 const User = require('./user')
+const Media = require('./media')
 
 const tok = {
     secret: secret,
@@ -19,10 +20,11 @@ const tok = {
     }
 }
 
-const generatorAccessToken = (userId,username) => {
+const generatorAccessToken = (userId, username, media) => {
     const payload = {
         userId,
         username,
+        media,
         type: tok.tokens.access.type
     }
 
@@ -56,7 +58,8 @@ const UpdateTokens = async (userId) => {
     let username = await User.findByPk(userId).then(user => {
         return user.username
     })
-    const accessToken = generatorAccessToken(userId, username)
+    let media = await Media.findOne({where: {userId: userId}})
+    const accessToken = generatorAccessToken(userId, username, media)
     const refreshToken = generateRefreshToken()
 
     return replaceDbRefreshToken(refreshToken.id, userId).then(() => {

@@ -6,6 +6,7 @@ const schema = buildSchema(`
         getUser(id: String!): User
         checkLogin(login: String!): String
         getMessage(id: String!): Message
+        getMedia(id: String!): Media
         getMessagesByChat(id: String): [Message]
         getChatsByUsers(query: String): [Chat]
         getChatById(id: String): Chat
@@ -22,9 +23,11 @@ const schema = buildSchema(`
         addFriend(id: String): User
         createChat(chat: ChatCreateInput): Chat
         addUserToChat(chat: InsertUserToChat): String
+        uploadUserIco(filename: String,originalFilename: String): Media
+        updateUserIco(filename: String,originalFilename: String): Media
         deleteUserOfChannel(idChannel: String,idUser: String): Notification
         postMessage(message: MessageInput): Message
-        postMessageMedia(id: String, url: String, channelId: String): Media
+        postMessageMedia(id: String, url: String, channelId: String): Message
         upsertMessage(message: upsertMessage): Message
     }
     
@@ -36,6 +39,7 @@ const schema = buildSchema(`
     type User {
         id: ID
         username: String
+        media: [Media]
         messages: [Message]
     }
     
@@ -62,6 +66,7 @@ const schema = buildSchema(`
         content: String
         createdAt: String
         user: User
+        type: String
     }
     
     input UserDataInput{
@@ -71,9 +76,11 @@ const schema = buildSchema(`
     }
     
     type Media {
-    idMsg: String
-    url: String
-    idMedia: String
+        id: String
+        urlFilename: String
+        filename: String
+        user: User
+        message: Message
     }
     
     input ChatCreateInput{

@@ -20,7 +20,6 @@ const Channels = ({channels, channelArray = [], newChannel, completeDelUser}) =>
     socketWaitingNotiUserThatDel(channels)
 
     useEffect(() => {
-        console.log("MAIN CHA", completeDelUser)
         if (completeDelUser) {
             socketNotiUserThatDel({userId: completeDelUser})
         }
