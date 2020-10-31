@@ -40,7 +40,6 @@ const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
     return (
         <Modal
             show={userSettingShow}
-            // show={true}
             onHide={SettingChannelHandleClose}
             keyboard={false}
             style={{background: "rgba(0,0,0,0.2)", paddingTop: "10vh"}}>
@@ -49,7 +48,7 @@ const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
                     <h3 style={{color: "#f0f1f5"}}>МОЯ УЧЁТНАЯ ЗАПИСЬ</h3>
                 </div>
                 <div className="d-flex mt-3"
-                     style={{background: "#292b2f", borderRadius: "8px", border: "1px solid #000"}}>
+                     style={{background: "#292b2f", borderRadius: "8px", border: "1px solid #000", width: "90%"}}>
                     <div className="d-flex w-25 justify-content-center align-items-center">
                         {user && user.ico && user.ico.urlFilename ? <DropZoneUpdateUserIco/> : <DropZoneUserSetIco/>}
                     </div>
@@ -73,15 +72,6 @@ const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
             <Modal.Footer className="ModalWindowFooter">
                 <div>
                     <CLogoutButton/>
-                    {/*<button className="d-flex mr-4 mt-1 align-items-center submitButton ModalWindowSettingButton"*/}
-                    {/*        onClick={ChannelAddingHandleShow}>*/}
-                    {/*    <p className="p-2 text-white" style={{}}>Добавить пользователя</p>*/}
-                    {/*    <svg width="1.3em" viewBox="0 0 16 16" className="bi bi-gear mt-1"*/}
-                    {/*         fill="#fff">*/}
-                    {/*        <path fillRule="evenodd"*/}
-                    {/*              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>*/}
-                    {/*    </svg>*/}
-                    {/*</button>*/}
                 </div>
             </Modal.Footer>
         </Modal>
@@ -89,6 +79,7 @@ const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
 }
 
 const mapUserInfo = state => {
+    // adding.uploadUserIco.payload.data.uploadUserIco
     return {
         user: checkNested(state, 'user', 'user')
     }

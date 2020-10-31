@@ -72,16 +72,16 @@ const WindowSearchFriend = ({showSF, addFriend, search, errorbd, complete}) => {
         const PSearchFriendError = ({txt}) => <p className="m-0 p-0 PSearchFriendError">{txt}</p>
         if (users && users.length > 0) {
             return (
-                <ul className="UlUserForSearch" value={idFriendUser} onChange={(e) => {
+                <ul className="pl-0 UlUserForSearch" value={idFriendUser} onChange={(e) => {
                     idFriendUser = e.target.id
                 }}>
                     {users.map((item, index) => <LiUserItem user={item} key={index}/>)}
                 </ul>
             )
         }
-        return (<ul id="UlUserForSearch">
-            {users == null ? <PSearchFriendError txt={"Упс, такого чела нет"}/> : <PSearchFriendError txt={"Ищу"}/>}
-        </ul>)
+        return (<ul className="UlUserForSearch">
+             {users == null ? <PSearchFriendError txt={"Упс, такого чела нет"}/> : <PSearchFriendError txt={"Ищу"}/>}
+         </ul>)
     }
 
     const mapStateSearchFriend = state => {
@@ -104,7 +104,7 @@ const WindowSearchFriend = ({showSF, addFriend, search, errorbd, complete}) => {
                 <input type="text" className="w-75 pl-1 inputSearchUsers" autoComplete="off"
                        placeholder="Поиск..." value={valueSearchUser}
                        onChange={e => setValueSearchUser(e.target.value)}/>
-                <div>
+                <div className="mt-2 DivContainerForUserSearchList">
                     <CUserList/>
                 </div>
             </Modal.Body>

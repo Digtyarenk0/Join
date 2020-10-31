@@ -6,7 +6,11 @@ export const searchFriendUser = async ({usernameSearchFriend}) => {
                           getFriends(username: $username){
                             id
                             username
-
+                             media{
+                                  id
+                                  filename
+                                  urlFilename
+                                }
                           }
                         }`, `{"username": \"${usernameSearchFriend}\"}`)
 }

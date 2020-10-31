@@ -17,20 +17,27 @@ const dispatchUploadFile = (file, channelId) => async dispatch => {
             method: 'POST',
             body: fd
         }).then(res => res.json())
+    console.log(uploadDone, channelId)
+    console.log(uploadDone.urlFilename, uploadDone.filename)
     let msg = await dispatch(actionPromiseAdding(await getGQL('/graphql')
-    (`mutation UpdUserMedia($id: String,$url: String, $channelId:String){
-                          postMessageMedia(id: $id, url: $url, channelId: $channelId){
-                          id
-                        content
-                        createdAt
-                        user{
-                          username
-                        }
-                        type
-                          }
-                        }`, `{"id": \"${uploadDone.id}\",
-                                    "url": \"${uploadDone.url}\",
-                                    "channelId": \"${channelId}\"}`), 'uploadMedia'))
+    (`mutation PostMessageMedia($channel: ID,$filename: String,$urlFilename: String){
+                                      postMessageMedia(msg: {channel: $channel, filename: $filename ,urlFilename: $urlFilename}){
+                                        id
+                                        content
+                                        user {
+                                          id
+                                          media{
+                                              id
+                                              filename
+                                              urlFilename
+                                            }
+                                        }
+                                        type
+                                        
+                                      }
+                                    }`, `{"channel": \"${channelId}\",
+                                    "filename": \"${uploadDone.filename}\",
+                                    "urlFilename": \"${uploadDone.urlFilename}\"}`), 'uploadMedia'))
 }
 
 

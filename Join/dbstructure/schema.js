@@ -17,6 +17,7 @@ const schema = buildSchema(`
         getFriends(username: String): [User]
         getMessages: [Message]
     }
+    
     type Mutation {
         refreshTokens(refTokens: String): Tokens
         registration(user: UserDataInput): User
@@ -27,7 +28,7 @@ const schema = buildSchema(`
         updateUserIco(filename: String,originalFilename: String): Media
         deleteUserOfChannel(idChannel: String,idUser: String): Notification
         postMessage(message: MessageInput): Message
-        postMessageMedia(id: String, url: String, channelId: String): Message
+        postMessageMedia(msg: MessageInputMedia): Message
         upsertMessage(message: upsertMessage): Message
     }
     
@@ -98,8 +99,9 @@ const schema = buildSchema(`
     }
     
      input MessageInputMedia {
-        chatId: ID
-        content: String
+        channel: ID
+        filename: String
+        urlFilename: String
     }
     
     input upsertMessage{

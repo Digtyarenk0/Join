@@ -159,25 +159,28 @@ module.exports = {
         return msg
     }
     ,
-    async postMessageMedia({id, url, channelId}, {user}) {
+    async postMessageMedia({msg: {urlFilename, filename, channel}}, {user}) {
         if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        console.log(channel,user.id)
+        console.log(filename,urlFilename)
         await UserToChat.findOne({
             where: {
                 [Op.and]: [{userId: user.id},
-                    {chatId: channelId}]
+                    {chatId: channel}]
             }
         }).then(check => {
+            console.log(check)
             if (!check) throw new Error('Вы не состоите в этом чате')
         })
         let msg = await user.createMessage({
-            chatId: channelId,
-            content: url,
+            chatId: channel,
+            content: urlFilename,
             type: "photo"
         })
-        let updMedia = await Media.findByPk(id).then(async media => {
-            if (!media) throw new Error('Ошибка загрузки')
-            media.messageId = msg.id
-            return await media.save()
+        let updMedia = await Media.create({
+            urlFilename: urlFilename,
+            filename: filename,
+            messageId: msg.id
         })
         return msg
     }
@@ -198,8 +201,7 @@ module.exports = {
         }
     },
     async uploadUserIco({originalFilename, filename}, {user}) {
-        console.log(originalFilename, filename)
-        // if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
         return await Media.create({
             urlFilename: filename,
             filename: originalFilename,
@@ -283,8 +285,8 @@ module.exports = {
         }
     }
     ,
-    async getUsersByUsername({username}) {
-        let result = await User.findAll({where: {username: {[Op.startsWith]: username}}, limit: 20})
+    async getUsersByUsername({username}, {user}) {
+        let result = await User.findAll({where: {[Op.and]: [{username: {[Op.startsWith]: username}}, {username: {[Op.ne]: user.username}}]}, limit: 20})
         if (result.length === 0) return "Упс, таких нет"
         return result
     }

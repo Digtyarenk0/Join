@@ -10,7 +10,7 @@ import {Button, Modal} from "react-bootstrap";
 import {socketAddToChannel} from '../../../../../socketClient'
 import {getUsersByChannel} from "../actionGetUsersByChannel";
 
-const WindowAddingToChannel = ({showCS, addFriendToChannel, search, channelId, errorbd, complete,settingGetDelUser}) => {
+const WindowAddingToChannel = ({showCS, addFriendToChannel, search, channelId, errorbd, complete, settingGetDelUser}) => {
     const [channelAddingShow, setChannelAddingShow] = useState(false);
     const [idFriendUser, setIdFriendUser] = useState("");
     const SettingChannelHandleClose = () => {
@@ -69,10 +69,8 @@ const WindowAddingToChannel = ({showCS, addFriendToChannel, search, channelId, e
         if (users) {
             users = users.filter(x => !!x)
             return (
-                <ul className="UlUserForSearch" value={idFriendUser}
-                    onChange={(e) => {
-                        setIdFriendUser(e.target.id.slice(11, e.target.id.length))
-                    }}>
+                <ul className="pl-0 UlUserForSearch" value={idFriendUser}
+                    onChange={(e) => setIdFriendUser(e.target.id.slice(11, e.target.id.length))}>
                     {users.map((item, index) => {
                         if (item) return <LiUserItem user={item} key={index}/>
                     })}
@@ -104,7 +102,7 @@ const WindowAddingToChannel = ({showCS, addFriendToChannel, search, channelId, e
                 <input type="text" className="w-75 pl-1 inputSearchUsers" autoComplete="off"
                        placeholder="Поиск..." value={valueSearchFriend}
                        onChange={e => setValueSearchFriend(e.target.value)}/>
-                <div>
+                <div className="mt-2 DivContainerForUserSearchList">
                     <CUserList/>
                 </div>
             </Modal.Body>
