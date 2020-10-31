@@ -28,7 +28,10 @@ const Channels = ({channels, channelArray = [], newChannel, completeDelUser}) =>
     if (channelArray) {
         return (
             <ul className="p-0 m-0 h-100 w-100 ChannelsWindowResize" id="UlChatsUserForMain">
-                {channelArray.map((item, index) => <ChannelItem itemRooms={item} key={index}/>)}
+                {channelArray.map((item, index) => {
+                    console.log(item)
+                    return <ChannelItem itemRooms={item} key={index}/>
+                })}
             </ul>
         )
     }

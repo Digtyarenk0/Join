@@ -3,6 +3,23 @@ import io from 'socket.io-client';
 const socket = io.connect();
 const socketPostUserData = (data) => socket.emit("UserDataInf", data)
 
+console.log('check 1', socket.connected);
+socket.on('connect', function() {
+    let status = document.querySelector('.StatusUser')
+    if (status){
+        status.style.color = "#41B581"
+    }
+});
+
+socket.on('disconnect', function() {
+    let status = document.querySelector('.StatusUser')
+    if (status){
+        status.style.color = "#474951"
+    }
+});
+
+
+
 function socketMyChannelsParticipation(data) {
     return socket.emit('channelsUserParticipation', data)
 }
@@ -72,4 +89,5 @@ export {
     waitAddMeToNewChannel,
     socketNotiUserThatDel,
     socketWaitingNotiUserThatDel
+    // checkStatus
 }

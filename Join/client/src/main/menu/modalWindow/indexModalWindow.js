@@ -4,7 +4,6 @@ import {Modal} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import {actionLogout} from "../../../redux/user/actions";
 import checkNested from "../../../checkNested";
-import {socketStatusUser} from "../../socketClient";
 import DropZoneUserSetIco from "./DropZoneUserSetIco";
 import DropZoneUpdateUserIco from "./DropZoneUpdateUserIco";
 
@@ -21,21 +20,18 @@ const LogoutButton = ({actions}) =>
 const CLogoutButton = connect(null, {actions: actionLogout})(LogoutButton)
 
 
-const IndexModalWindowUser = ({showSettingUser, user, userIco}) => {
+const IndexModalWindowUser = ({showSettingUser, user}) => {
     const [userSettingShow, setUserSettingShow] = useState(false);
 
     const SettingChannelHandleClose = () => {
         setUserSettingShow(false)
     }
 
-    socketStatusUser()
-
     useEffect(() => {
         if (showSettingUser) {
             setUserSettingShow(true)
         }
     }, [showSettingUser])
-
 
     return (
         <Modal

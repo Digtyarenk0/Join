@@ -13,6 +13,11 @@ export const getChannels = async () => {
                          user{
                             id
                             username
+                             media{
+                              id
+                              filename
+                              urlFilename
+                            }
                           }
                       }}}`)
 }

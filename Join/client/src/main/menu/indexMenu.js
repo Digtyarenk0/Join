@@ -20,7 +20,7 @@ const UserInfo = ({username}) => {
     return (<>
             <button onClick={UserSettingHandleShow}
                     style={{background: "transparent", border: "none", outline: "none"}}>
-                <p className="p-0 m-0 mt-2 text-truncate text-center"
+                <p className="p-0 m-0 mt-2 text-truncate text-center StatusUser"
                    style={{color: "#43b581", fontWeight: "500"}}>{username || 'anon'}
                 </p>
             </button>

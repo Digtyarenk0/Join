@@ -63,9 +63,9 @@ app.post('/upload', upload.single('photo'), async (req, res, next) => {
 
 connections = [];
 io.sockets.on('connection', (socket) => {
-    socket.emit("connectionStatus",true)
     console.log("Успешное соединение");
     connections.push(socket);
+    // socket.emit("connect")
 
     socket.on("UserDataInf", (data) => {
         let sk = connections[connections.indexOf(socket)]
@@ -96,7 +96,6 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on("notificationThatUserWasOutChannel", (data) => {
-        console.log(data.userId)
         if (data && data.userId){
             connections.map(sok => {
                 console.log(data.userId,sok.idUser == data.userId)
@@ -106,7 +105,6 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('disconnect', function (data) {
-        socket.emit('connectionStatus', false)
         connections.splice(connections.indexOf(socket), 1);
         console.log("Отключились");
     });
