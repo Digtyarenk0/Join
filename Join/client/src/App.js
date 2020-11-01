@@ -14,8 +14,8 @@ const NOTFOUND = () => {
     }
     return (
         <div>
-            <Link to="/authentication"><h3 class="text-warning">404 PAGE NOT FOUND</h3>
-                <p class="text-success">Вернуться на главную...</p></Link>
+            <Link to="/authentication"><h3 className="text-warning">404 PAGE NOT FOUND</h3>
+                <p className="text-success">Вернуться на главную...</p></Link>
         </div>
     )
 }
@@ -24,7 +24,7 @@ const NOTFOUND = () => {
 class App extends Component {
     render() {
         return (
-                <div class="App col-12 m-0 p-0 background_svgmain">
+                <div className="App col-12 m-0 p-0 background_svgmain">
                     <Switch>
                         <Route exact path='(/authentication|)' component={Login}/>
                         <Route exact path='/registration' component={Registration}/>

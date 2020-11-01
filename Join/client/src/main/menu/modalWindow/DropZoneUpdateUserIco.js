@@ -14,13 +14,14 @@ const dispatchUpdateFile = (file) => async dispatch => {
             method: 'POST',
             body: fd
         }).then(res => res.json())
-    console.log("FILE", uploadDone)
     let msg = await dispatch(actionPromiseAdding(await getGQL('/graphql')
     (`mutation UpdateUserIco($originalFilename: String, $filename: String){
                       updateUserIco(originalFilename: $originalFilename, filename: $filename ){
                        id
                         urlFilename
-                        userId
+                        user{
+                        id
+                        }
                       }
                     }`, `{"originalFilename": \"${uploadDone.filename}\",
                                   "filename": \"${uploadDone.urlFilename}\"}`), 'uploadUserIco'))

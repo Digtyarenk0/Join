@@ -24,11 +24,10 @@ const Main = ({checkToken, access, user,getChannels}) => {
             waitAddMeToNewChannel(getChannels)
         }
     }, [user])
-    // checkStatus()
     return (
-        <div class="d-flex w-100 h-100" style={{width: "100vw"}}>
+        <div className="d-flex w-100 h-100" style={{width: "100vw"}}>
             <IndexMenu/>
-            <div class="bg-dark m-0 p-0" style={{width: "95vw"}}>
+            <div className="bg-dark m-0 p-0" style={{width: "95vw"}}>
                 <ChannelMainContainer/>
             </div>
         </div>)

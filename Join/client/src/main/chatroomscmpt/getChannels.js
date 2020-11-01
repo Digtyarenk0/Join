@@ -10,6 +10,7 @@ export const getChannels = async () => {
                         id
                         content
                         createdAt
+                        type
                          user{
                             id
                             username

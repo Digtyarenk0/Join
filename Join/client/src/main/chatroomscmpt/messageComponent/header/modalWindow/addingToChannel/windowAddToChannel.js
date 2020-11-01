@@ -16,7 +16,6 @@ const WindowAddingToChannel = ({showCS, addFriendToChannel, search, channelId, e
     const SettingChannelHandleClose = () => {
         setChannelAddingShow(false)
         settingGetDelUser({channelId: channelId})
-        console.log("YES")
     }
 
     useEffect(() => {
@@ -137,7 +136,7 @@ const mapStateChannelSetting = state => {
             state.adding.addFriendToChannelMap.payload.errors &&
             state.adding.addFriendToChannelMap.payload.errors[0] &&
             state.adding.addFriendToChannelMap.payload.errors[0].message),
-        complete: checkNested(state, "adding", "addFriendToChannelMap", "payload", "data", "addUserToChat")
+        complete: checkNested(state, "adding", "addFriendToChannelMap", "payload", "data", "addUserToChat"),
     }
 }
 

@@ -9,7 +9,7 @@ import DropZoneUpdateUserIco from "./DropZoneUpdateUserIco";
 
 const LogoutButton = ({actions}) =>
     (<Link to="/join">
-        <button onClick={() => actions()} class="btn text-white justify-content-center"
+        <button onClick={() => actions()} className="btn text-white justify-content-center"
                 style={{
                     background: "#7289da",
                     fontWeight: "500"

@@ -57,7 +57,6 @@ app.post('/upload', upload.single('photo'), async (req, res, next) => {
     console.log("AUF")
     const {originalname, filename} = req.file
     console.log(originalname,filename)
-    // let img = await Media.create({urlFilename: filename, filename: originalname})
     res.send(JSON.stringify({urlFilename: filename, filename: originalname}))
 })
 
@@ -65,7 +64,6 @@ connections = [];
 io.sockets.on('connection', (socket) => {
     console.log("Успешное соединение");
     connections.push(socket);
-    // socket.emit("connect")
 
     socket.on("UserDataInf", (data) => {
         let sk = connections[connections.indexOf(socket)]
