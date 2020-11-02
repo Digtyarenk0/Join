@@ -72,14 +72,15 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on("channelsUserParticipation", (data) => {
-        if (data && data.idChannel) {
-            socket.join(data.idChannel)
-            io.to(data.idChannel).emit("userJoin", "Join to channel")
+        if (data && data[0]) {
+            data.map(channel => {
+                socket.join(channel.id)
+                io.to(channel.id).emit("userJoin", "Join to channel" + channel.id)
+            })
         }
         socket.on('sendMessageToChannel', data => {
-            console.log(data.idChannel)
             let UPD = {type: "UPD", idChannel: data.idChannel}
-            io.to(data.idChannel).emit("newMessagePleaseUpdateHistory", UPD)
+            io.sockets.to(data.idChannel).emit("newMessagePleaseUpdateHistory", UPD)
         })
     })
 

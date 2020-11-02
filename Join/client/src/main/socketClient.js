@@ -52,10 +52,11 @@ function waitAddMeToNewChannel(dispatchGetNewChannel) {
     })
 }
 
-function socketNewMSGWait(dispatchGetMSG) {
+function socketNewMSGWait(dispatchGetMSG,dispatchGetNewLastMsgChannel) {
     socket.on("newMessagePleaseUpdateHistory", async data => {
         if (data && data.idChannel) {
-            dispatchGetMSG({idChannel: data.idChannel})
+                dispatchGetMSG({idChannel: data.idChannel})
+                dispatchGetNewLastMsgChannel({id: data.idChannel})
         }
     })
 }

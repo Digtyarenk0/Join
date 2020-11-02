@@ -8,6 +8,10 @@ import checkNested from "../../../../checkNested";
 import {actionPromiseChosenChannelMessages} from "../../../../redux/useChannelMessages/actions";
 import Dropzone from "react-dropzone";
 import getGQL from "../../../../getGQL";
+import {actionPromiseChannels} from "../../../../redux/channels/actions";
+import {actionPromiseChannelsLastMSG} from "../../../../redux/channelsLastMSG/actions";
+import {getChannels} from "../../getChannels";
+import {getLastMsg} from "../../getLastMsg";
 
 const dispatchUploadFile = (file, channelId) => async dispatch => {
     const fd = new FormData()
@@ -17,8 +21,6 @@ const dispatchUploadFile = (file, channelId) => async dispatch => {
             method: 'POST',
             body: fd
         }).then(res => res.json())
-    console.log(uploadDone, channelId)
-    console.log(uploadDone.urlFilename, uploadDone.filename)
     let msg = await dispatch(actionPromiseAdding(await getGQL('/graphql')
     (`mutation PostMessageMedia($channel: ID,$filename: String,$urlFilename: String){
                                       postMessageMedia(msg: {channel: $channel, filename: $filename ,urlFilename: $urlFilename}){
@@ -78,11 +80,15 @@ const mapMedia = state => {
 const CDropZone = connect(mapMedia, {uploadFile: dispatchUploadFile})(DropZone)
 
 
-const Footer = ({idChannel, channelName, sendMSG, getMSG, checkNewMessage, checkNewMessageMedia}) => {
+const Footer = ({idChannel, channelName, sendMSG, getMSG,getNewLastMsg,lastMSGChannel, checkNewMessage, checkNewMessageMedia}) => {
     const [messageContent, setMessageContent] = useState('');
     useEffect(() => {
-        socketSendMessage({idChannel})
-        socketNewMSGWait(getMSG)
+        if(checkNewMessage ||  checkNewMessageMedia) {
+            socketSendMessage({idChannel})
+            socketNewMSGWait(getMSG,lastMSGChannel)
+            // socketNewMSGWait(getMSG,getNewLastMsg)
+            // console.log(checkNewMessage,checkNewMessageMedia)
+        }
     }, [checkNewMessage, checkNewMessageMedia])
 
     const fncSND = ({idChannel, messageContent}) => {
@@ -127,6 +133,12 @@ const dispatchMessagesByChannel = ({idChannel}) => async dispatch => {
     dispatch(actionPromiseChosenChannelMessages(await getMessagesByChannel({idChannel}), "getMessagesByChannel"))
 }
 
+const dispatchGetChannels = () => async dispatch => dispatch(actionPromiseChannels(getChannels(), "getChannels"))
+
+// const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannelsLastMSG(getLastMsg({id}), "getChannelLastMSG"))
+const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannels(getLastMsg({id}), "getChannelLastMSG"))
+
+
 
 const mapIdChannel = state => {
     return {
@@ -137,4 +149,4 @@ const mapIdChannel = state => {
     }
 }
 
-export default connect(mapIdChannel, {sendMSG: sendMessage, getMSG: dispatchMessagesByChannel})(Footer)
+export default connect(mapIdChannel, {sendMSG: sendMessage, getMSG: dispatchMessagesByChannel,getNewLastMsg: dispatchGetChannels,lastMSGChannel: dispatchGetLastMSG})(Footer)

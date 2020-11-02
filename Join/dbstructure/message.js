@@ -6,6 +6,9 @@ class Message extends Sequelize.Model {
     get user() {
         return this.getUser()
     }
+    get chat() {
+        return this.getChat()
+    }
 }
 
 Message.init({

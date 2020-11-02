@@ -83,19 +83,14 @@ const ChannelHistory = ({channelHistory, checkNewMessage, idChannel, getMSG}) =>
         id: "0", content: "Загрузка...", createdAt: "Загрузка...",
         user: {id: "0", username: "Загрузка...."}
     }])
-    // const [status, setStatus] = useState('')
     useEffect(() => {
         socketJoinToChannel()
     }, [idChannel])
 
 
-    useEffect(() => {
-        if (idChannel) socketMyChannelsParticipation({idChannel})
-    }, [idChannel])
-
-    //     useEffect(() => {
-    //     // socketMyChannelsParticipation({idChannel})
-    // }, [checkNewMessage])
+    // useEffect(() => {
+    //     if (idChannel) socketMyChannelsParticipation({idChannel})
+    // }, [idChannel])
 
     useEffect(() => {
         if (idChannel) getMSG({idChannel})

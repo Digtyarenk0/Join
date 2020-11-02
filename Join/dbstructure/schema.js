@@ -6,8 +6,10 @@ const schema = buildSchema(`
         getUser(id: String!): User
         checkLogin(login: String!): String
         getMessage(id: String!): Message
+        getLastMsg(id: String): Message
         getMedia(id: String!): Media
         getMessagesByChat(id: String): [Message]
+        getChat(id: String): Chat
         getChatsByUsers(query: String): [Chat]
         getChatById(id: String): Chat
         getChatsUs(query: String): [ChatsUser]
@@ -66,6 +68,7 @@ const schema = buildSchema(`
         id: ID
         content: String
         createdAt: String
+        chat: Chat
         user: User
         type: String
     }

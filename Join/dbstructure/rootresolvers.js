@@ -224,7 +224,10 @@ module.exports = {
             return await Message.findAll({where: {chatId: id}, order: [['createdAt', 'DESC']], limit: 15})
         })
 
-
+    },
+    async getLastMsg({id}, {user}){
+        // if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        return await Message.findOne({where: {chatId: id}, order: [['createdAt', 'DESC']]})
     }
     ,
     async getChatsByUsers({query}, {user}) {
@@ -323,14 +326,15 @@ module.exports = {
     ,
     async getMessage({id}) {
         return await Message.findByPk(id)
-    }
-    ,
-
+    },
     async getUsers() {
         return await User.findAll()
     }
     ,
-
+    async getChat({id}) {
+        return await Chat.findByPk(id)
+    }
+    ,
     async getMessages() {
         return await Message.findAll()
     }

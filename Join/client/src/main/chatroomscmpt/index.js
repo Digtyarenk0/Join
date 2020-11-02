@@ -1,18 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import EmptyChannel from './emptyChannel'
 import {getChannels} from "./getChannels";
+import {getLastMsg} from "./getLastMsg";
 import ChannelItem from './channelItem'
 import {actionPromiseChannels} from "../../redux/channels/actions";
 import checkNested from "../../checkNested";
 import HeaderChannels from "./headerChannels/header";
 import Channel from "./messageComponent";
 import {Route} from "react-router";
-import {socketWaitingNotiUserThatDel, socketNotiUserThatDel} from "../socketClient";
+import {socketWaitingNotiUserThatDel, socketNotiUserThatDel, socketMyChannelsParticipation} from "../socketClient";
 
 const actionGetChannels = () => async dispatch => dispatch(actionPromiseChannels(getChannels(), "getChannels"))
 
-const Channels = ({channels, channelArray = [], newChannel, completeDelUser}) => {
+const Channels = ({channels, channelArray = [], newLastMSG, newChannel, completeDelUser}) => {
+    const [arrLastMsg, setArrLastMsg] = useState([])
+
     useEffect(() => {
         channels()
     }, [newChannel])
@@ -25,15 +28,25 @@ const Channels = ({channels, channelArray = [], newChannel, completeDelUser}) =>
         }
     }, [completeDelUser])
 
-    if (channelArray) {
+    useEffect(() => {
+        if (channelArray && channelArray[0]) socketMyChannelsParticipation(channelArray)
+    }, [channelArray])
+
+    useEffect(() => {
+        if (channelArray) setArrLastMsg(channelArray)
+        if (newLastMSG) setArrLastMsg(newLastMSG)
+    }, [channelArray, newLastMSG])
+
+    if (arrLastMsg) {
         return (
             <ul className="p-0 m-0 h-100 w-100 ChannelsWindowResize" id="UlChatsUserForMain">
-                {channelArray.map((item, index) => {
-                    return <ChannelItem itemRooms={item} key={index}/>
+                {arrLastMsg.map((item) => {
+                    return <ChannelItem itemRooms={item} key={item.lastMessage.id}/>
                 })}
             </ul>
         )
     }
+
     return (<EmptyChannel/>)
 }
 
@@ -41,6 +54,8 @@ const mapChannelsToProps = state => {
     return {
         channelArray: (checkNested(state, 'channels', 'getChannels', 'payload', 'data', 'getChatsUs')),
         newChannel: (checkNested(state, 'adding', 'createChannel', 'payload', 'data', 'createChat')),
+        newLastMSG: checkNested(state, 'channels', 'getChannelLastMSG', "payload", "data", "getChatsUs"),
+        // newLastMSG: checkNested(state, 'channels', 'getChannels', "payload", "data", "getChatsUs"),
         completeDelUser: (checkNested(state, 'adding', 'delUserOfChannel', 'payload', 'data', 'deleteUserOfChannel', 'content'))
 
     }

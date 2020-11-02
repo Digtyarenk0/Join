@@ -10,13 +10,13 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import {rootReducer} from "./redux/rootReducer"
 import {createBrowserHistory} from 'history';
-import {BrowserRouter,Router} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 export const history = createBrowserHistory();
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
-store.subscribe( () => console.log(store.getState()))
+// store.subscribe( () => console.log(store.getState()))
 
 const app = (
     <BrowserRouter>
