@@ -1,4 +1,5 @@
 import * as actions from './actions'
+import {socketMyChannelsParticipation} from "../../main/socketClient";
 
 const initState = {
     name: "wait fetch channels",
@@ -10,7 +11,7 @@ const initState = {
 export const channelsReducer = (state = initState, action) => {
     if (action.name == "getChannelLastMSG") {
         if (action.status == "RESOLVED") {
-            if (state.getChannels){
+            if (state.getChannels) {
                 state.getChannels.payload.data.getChatsUs.map(channel => {
                     if (channel.id == action.payload.data.getLastMsg.chat.id) {
                         channel.lastMessage = action.payload.data.getLastMsg
@@ -49,6 +50,9 @@ export const channelsReducer = (state = initState, action) => {
                 payload: action.payload,
                 loader: action.loader
             }
+        }
+        if (action.payload && action.payload.data && action.payload.data.getChatsUs && action.payload.data.getChatsUs[0]) {
+            socketMyChannelsParticipation(action.payload.data.getChatsUs)
         }
         return {
             [action.name]: {

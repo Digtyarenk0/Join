@@ -28,20 +28,21 @@ const Channels = ({channels, channelArray = [], newLastMSG, newChannel, complete
         }
     }, [completeDelUser])
 
-    useEffect(() => {
-        if (channelArray && channelArray[0]) socketMyChannelsParticipation(channelArray)
-    }, [channelArray])
+    // useEffect(() => {
+    //     if (channelArray && channelArray[0]) socketMyChannelsParticipation(channelArray)
+    // }, [])
 
     useEffect(() => {
         if (channelArray) setArrLastMsg(channelArray)
         if (newLastMSG) setArrLastMsg(newLastMSG)
     }, [channelArray, newLastMSG])
 
-    if (arrLastMsg) {
+    console.log(arrLastMsg)
+    if (arrLastMsg && arrLastMsg.length > 0) {
         return (
-            <ul className="p-0 m-0 h-100 w-100 ChannelsWindowResize" id="UlChatsUserForMain">
-                {arrLastMsg.map((item) => {
-                    return <ChannelItem itemRooms={item} key={item.lastMessage.id}/>
+            <ul className="p-0 m-0 h-100 ChannelsWindowResize" id="UlChatsUserForMain">
+                {arrLastMsg.map((item,index) => {
+                    return <ChannelItem itemRooms={item} key={index}/>
                 })}
             </ul>
         )
@@ -73,7 +74,9 @@ const ChannelMainContainer = () => {
                      style={{minHeight: "50px"}}>
                     <HeaderChannels/>
                 </div>
-                <CChannels/>
+                <div style={{maxWidth: "100%"}}>
+                    <CChannels/>
+                </div>
             </div>
             <div className="d-flex flex-column h-100 w-100 m-0 p-0 ChannelContainer"
                  style={{backgroundColor: "#33363d"}}>

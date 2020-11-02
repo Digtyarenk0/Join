@@ -28,13 +28,13 @@ const ChannelItem = ({itemRooms: {id, name = "Загрузка...",lastMessage},
     let typeText = <p className="clipChannel"
                       style={{color: "#b9bbbe", maxWidth: "6vw", maxHeight: "25px"}}> {content}</p>
     return (
-        <li className="m-0 p-0 RoomsChatsElement" key={index} style={{listStyle: 'none'}}>
+        <li className="m-0 p-0 w-100 RoomsChatsElement" key={index} style={{listStyle: 'none'}}>
             <Link to={`/join/${id}/${name}`}>
                 <div id={id} className=" p-1 m-0 d-flex" style={{background: "transparent"}}>
                     <div className="m-1 pr-1"><img
                         src={"http://localhost:4000/media/" + (media ? media : "deffaultAvatar.ico")} alt="avatar"
                         style={{height: "50px", borderRadius: "50%"}}/></div>
-                    <div className="d-flex flex-column h-100 col-10">
+                    <div className="d-flex flex-column h-100 w-100">
                         <div className="d-flex justify-content-between p-0 pt-1 h-100"><p
                             className="pb-0 m-0 clipChannel"
                             style={{
@@ -57,7 +57,6 @@ const ChannelItem = ({itemRooms: {id, name = "Загрузка...",lastMessage},
     )
 }
 const mapChannelItem = state => {
-    // channels.payload.data.getChatsUs
     return {
         lastMSG: checkNested(state, 'channels', 'getChannelLastMSG', "payload", "data", "getChatsUs")
     }

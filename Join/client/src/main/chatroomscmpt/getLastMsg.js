@@ -1,13 +1,13 @@
 import getGQL from "../../getGQL";
 
 export const getLastMsg = async ({id}) => {
-    console.log(id)
     return await getGQL('/graphql')
     (`query getLastMSG($id: String){
   getLastMsg(id: $id){
     id
     content
     createdAt
+    type
         chat{
       id
       name

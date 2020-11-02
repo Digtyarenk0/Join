@@ -78,10 +78,11 @@ io.sockets.on('connection', (socket) => {
                 io.to(channel.id).emit("userJoin", "Join to channel" + channel.id)
             })
         }
-        socket.on('sendMessageToChannel', data => {
-            let UPD = {type: "UPD", idChannel: data.idChannel}
-            io.sockets.to(data.idChannel).emit("newMessagePleaseUpdateHistory", UPD)
-        })
+    })
+    socket.on('sendMessageToChannel', data => {
+        let UPD = {type: "UPD", idChannel: data.idChannel}
+        console.log(socket.rooms)
+        io.sockets.in(data.idChannel).emit("newMessagePleaseUpdateHistory", UPD)
     })
 
     socket.on("addUserToChannel", function (data) {
@@ -97,7 +98,6 @@ io.sockets.on('connection', (socket) => {
     socket.on("notificationThatUserWasOutChannel", (data) => {
         if (data && data.userId){
             connections.map(sok => {
-                console.log(data.userId,sok.idUser == data.userId)
                 if (sok.idUser == data.userId) sok.emit("notificationThatYouWasOutChannel", {not: "Вас исключили из канала"})
             })
         }

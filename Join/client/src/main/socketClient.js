@@ -55,6 +55,7 @@ function waitAddMeToNewChannel(dispatchGetNewChannel) {
 function socketNewMSGWait(dispatchGetMSG,dispatchGetNewLastMsgChannel) {
     socket.on("newMessagePleaseUpdateHistory", async data => {
         if (data && data.idChannel) {
+            console.log("FAFA", data)
                 dispatchGetMSG({idChannel: data.idChannel})
                 dispatchGetNewLastMsgChannel({id: data.idChannel})
         }

@@ -4,8 +4,8 @@ const actionPending = name => ({
     name: name,
     payload: null,
     error: '',
-    loader: true}
-    )
+    loader: true
+})
 
 
 const actionResolved = (payload, name) => ({

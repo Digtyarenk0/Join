@@ -80,12 +80,12 @@ const mapMedia = state => {
 const CDropZone = connect(mapMedia, {uploadFile: dispatchUploadFile})(DropZone)
 
 
-const Footer = ({idChannel, channelName, sendMSG, getMSG,getNewLastMsg,lastMSGChannel, checkNewMessage, checkNewMessageMedia}) => {
+const Footer = ({idChannel, channelName, sendMSG, getMSG, getNewLastMsg, lastMSGChannel, checkNewMessage, checkNewMessageMedia}) => {
     const [messageContent, setMessageContent] = useState('');
     useEffect(() => {
-        if(checkNewMessage ||  checkNewMessageMedia) {
+        if (checkNewMessage || checkNewMessageMedia) {
             socketSendMessage({idChannel})
-            socketNewMSGWait(getMSG,lastMSGChannel)
+            socketNewMSGWait(getMSG, lastMSGChannel)
             // socketNewMSGWait(getMSG,getNewLastMsg)
             // console.log(checkNewMessage,checkNewMessageMedia)
         }
@@ -96,14 +96,20 @@ const Footer = ({idChannel, channelName, sendMSG, getMSG,getNewLastMsg,lastMSGCh
         sendMSG({idChannel, messageContent})
     }
 
+    const submitOnEnter = (e) => {
+        if (e.key === 'Enter') {
+            fncSND({idChannel, messageContent})
+            setMessageContent("")
+        }
+    }
+
     return (
         <>
-            <div className="d-flex align-items-center justify-content-between rounded-top"
-                 style={{maxHeight: "5%"}}>
+            <div className="d-flex align-items-center justify-content-between rounded-top">
                 <div style={{maxWidth: "14%"}}>
                     <CDropZone/>
                 </div>
-                <textarea id="textareamsg" value={messageContent}
+                <textarea id="textareamsg" value={messageContent} onKeyUp={submitOnEnter}
                           onChange={e => setMessageContent(e.target.value)} maxLength="351"
                           className="TextAreaMessage" rows="1"
                           placeholder={`Написать ${channelName ? "в " + channelName : ""}`}></textarea>
@@ -139,7 +145,6 @@ const dispatchGetChannels = () => async dispatch => dispatch(actionPromiseChanne
 const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannels(getLastMsg({id}), "getChannelLastMSG"))
 
 
-
 const mapIdChannel = state => {
     return {
         idChannel: (checkNested(state, 'chosenChannel', 'getDataChosenChanel', 'payload', 'data', 'getChatById', 'id')),
@@ -149,4 +154,9 @@ const mapIdChannel = state => {
     }
 }
 
-export default connect(mapIdChannel, {sendMSG: sendMessage, getMSG: dispatchMessagesByChannel,getNewLastMsg: dispatchGetChannels,lastMSGChannel: dispatchGetLastMSG})(Footer)
+export default connect(mapIdChannel, {
+    sendMSG: sendMessage,
+    getMSG: dispatchMessagesByChannel,
+    getNewLastMsg: dispatchGetChannels,
+    lastMSGChannel: dispatchGetLastMSG
+})(Footer)

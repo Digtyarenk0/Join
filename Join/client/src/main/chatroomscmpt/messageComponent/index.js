@@ -15,8 +15,8 @@ const Channel = ({match: {params: {id}}, fetchChannel}) => {
     return (
         <div className="d-flex flex-column justify-content-between p-0 m-0 w-100 " style={{resize: "none", height: "99%"}}>
             <Header/>
-            <Body/>
-            <Footer/>
+            <Body />
+            <Footer  />
         </div>
     )
 }
