@@ -13,6 +13,33 @@
     min-height: 5vh;
 }
 
+.InptChangeNameChannel{
+    outline: none;
+    background: transparent;
+    border: 1px solid #32a773;
+    width: 40%;
+    color: #41B581;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.InptChangeNameChannel::placeholder {
+    color: #41B581;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.ResAll {
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+.ColChangeChannelNamesvg:hover{
+    fill: #32a773;
+    transition: 0.4s;
+}
+
 .TitleFormInput {
     font-size: 24px;
     color: #fff;
@@ -20,7 +47,7 @@
     margin-bottom: 20px
 }
 
-p{
+p {
     margin: 0 !important;
     padding: 0 !important;
 }

@@ -79,6 +79,7 @@ io.sockets.on('connection', (socket) => {
             })
         }
     })
+
     socket.on('sendMessageToChannel', data => {
         let UPD = {type: "UPD", idChannel: data.idChannel}
         console.log(socket.rooms)

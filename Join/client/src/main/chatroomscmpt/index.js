@@ -28,16 +28,11 @@ const Channels = ({channels, channelArray = [], newLastMSG, newChannel, complete
         }
     }, [completeDelUser])
 
-    // useEffect(() => {
-    //     if (channelArray && channelArray[0]) socketMyChannelsParticipation(channelArray)
-    // }, [])
-
     useEffect(() => {
         if (channelArray) setArrLastMsg(channelArray)
         if (newLastMSG) setArrLastMsg(newLastMSG)
     }, [channelArray, newLastMSG])
 
-    console.log(arrLastMsg)
     if (arrLastMsg && arrLastMsg.length > 0) {
         return (
             <ul className="p-0 m-0 h-100 ChannelsWindowResize" id="UlChatsUserForMain">

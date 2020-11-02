@@ -78,6 +78,14 @@ module.exports = {
         console.log({chat})
         if (!chat.name) chat.name = "Chat name"
         return await user.createChat({...chat})
+    },
+    async changeNameChat({id, name}, {user}){
+        if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
+        return await Chat.findByPk(id).then(async chat => {
+            console.log(chat)
+            chat.name = name
+            return await chat.save()
+        })
     }
     ,
     async addUserToChat({chat}, {user}) {
@@ -116,7 +124,6 @@ module.exports = {
                 if (!check) throw new Error('Вы не состоите в этом чате')
                 return check
             })
-        console.log(idChannel, idUser)
         return await UserToChat.destroy({where: {userId: idUser, chatId: idChannel}}).then(del => {
             if (!del) throw new Error("Произовшла ошибка")
             return {
@@ -161,8 +168,6 @@ module.exports = {
     ,
     async postMessageMedia({msg: {urlFilename, filename, channel}}, {user}) {
         if (!user) throw new Error('Пожалуйста, войдите в аккаунт')
-        console.log(channel,user.id)
-        console.log(filename,urlFilename)
         await UserToChat.findOne({
             where: {
                 [Op.and]: [{userId: user.id},

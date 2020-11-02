@@ -25,6 +25,7 @@ const schema = buildSchema(`
         registration(user: UserDataInput): User
         addFriend(id: String): User
         createChat(chat: ChatCreateInput): Chat
+        changeNameChat(id: String, name: String): Chat
         addUserToChat(chat: InsertUserToChat): String
         uploadUserIco(filename: String,originalFilename: String): Media
         updateUserIco(filename: String,originalFilename: String): Media

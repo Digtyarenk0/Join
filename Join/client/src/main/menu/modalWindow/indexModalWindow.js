@@ -58,7 +58,7 @@ const IndexModalWindowUser = ({showSettingUser, user}) => {
                         <div className="mt-2 mb-2  text-left">
                             <p className="TitlePshUserSetting">СТАТУС</p>
                             <div>
-                                <p className="ContentUserSettingPsh StatusUser">Online</p>
+                                <p className="ContentUserSettingPsh StatusUser"></p>
                             </div>
                         </div>
                     </div>

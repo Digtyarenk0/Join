@@ -21,7 +21,7 @@ const HeaderChannel = ({channelName}) => {
         }
     }
 
-    return (<div className="d-flex justify-content-between HeaderMsgComponent pb-4"  style={{height: "53px"}}>
+    return (<div className="d-flex justify-content-between HeaderMsgComponent pb-4"  style={{height: "54px"}}>
             <div className="pt-3 m-0">
                 <p className="pl-2 m-0" style={{color: "#43b581"}}>{roomName}
                 </p>
