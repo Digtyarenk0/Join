@@ -25,7 +25,6 @@ const UserInfo = ({username}) => {
                 </p>
             </button>
             {userSettingShow ?  <IndexModalWindowUser showSettingUser={userSettingShow}/> : "" }
-            {/*<IndexModalWindowUser showSettingUser={userSettingShow}/>*/}
         </>
     )
 }

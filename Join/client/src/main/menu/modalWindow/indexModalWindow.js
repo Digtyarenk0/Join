@@ -75,7 +75,6 @@ const IndexModalWindowUser = ({showSettingUser, user}) => {
 }
 
 const mapUserInfo = state => {
-    // adding.uploadUserIco.payload.data.uploadUserIco
     return {
         user: checkNested(state, 'user', 'user')
     }

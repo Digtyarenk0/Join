@@ -31,7 +31,7 @@ export default () => {
         let itemsUlRooms = document.querySelectorAll('#UlChatsUserForMain li');
         if (val != '') {
             itemsUlRooms.forEach(function (elem) {
-                if (elem.innerText.search(val) == -1) {
+                if (elem.innerText.split(/\n/ig)[0].search(val) == -1) {
                     elem.hidden = true;
                 } else {
                     elem.hidden = false;

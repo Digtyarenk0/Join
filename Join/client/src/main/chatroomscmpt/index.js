@@ -51,7 +51,6 @@ const mapChannelsToProps = state => {
         channelArray: (checkNested(state, 'channels', 'getChannels', 'payload', 'data', 'getChatsUs')),
         newChannel: (checkNested(state, 'adding', 'createChannel', 'payload', 'data', 'createChat')),
         newLastMSG: checkNested(state, 'channels', 'getChannelLastMSG', "payload", "data", "getChatsUs"),
-        // newLastMSG: checkNested(state, 'channels', 'getChannels', "payload", "data", "getChatsUs"),
         completeDelUser: (checkNested(state, 'adding', 'delUserOfChannel', 'payload', 'data', 'deleteUserOfChannel', 'content'))
 
     }

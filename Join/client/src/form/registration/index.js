@@ -2,20 +2,13 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import checkNested from "../../checkNested";
-import getGQL from "../../getGQL";
 import {actionPromise} from "../../redux/stage/actions";
 import {actionLogin} from "../../redux/user/actions";
 import {mutationLogin} from "../mutationLogin";
+import {mutationRegistration} from "./mutationRegistration";
 
 const actionReg = ({username, login, password}) => async dispatch => {
-    const data = await dispatch(actionPromise(await getGQL('/graphql')
-    (`mutation registration($username: String,$login: String,$password: String){
-                registration(user: {username: $username, login: $login, password: $password}){
-                            id
-                            username
-                        }}`, `{  "username": \"${username}\",
-                        "login": \"${login}\",
-                       "password": \"${password}\"}`), "registration"))
+    const data = await dispatch(actionPromise(mutationRegistration({login,password,username}), "registration"))
     if (data && data.data && data.data.registration && data.data.registration.id) {
         const token = await dispatch(actionPromise(mutationLogin({login, password})))
         console.log(token.data.login)

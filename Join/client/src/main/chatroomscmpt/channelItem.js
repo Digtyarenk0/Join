@@ -1,8 +1,6 @@
 import {Link} from "react-router-dom";
-import React, {useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {actionPromiseChannelsLastMSG} from "../../redux/channelsLastMSG/actions";
-import {getLastMsg} from "./getLastMsg";
 import checkNested from "../../checkNested";
 
 
@@ -33,10 +31,10 @@ const ChannelItem = ({itemRooms: {id, name = "Загрузка...",lastMessage},
                 <div id={id} className=" p-1 m-0 d-flex" style={{background: "transparent"}}>
                     <div className="m-1 pr-1"><img
                         src={"http://localhost:4000/media/" + (media ? media : "deffaultAvatar.ico")} alt="avatar"
-                        style={{height: "50px", borderRadius: "50%"}}/></div>
+                        style={{height: "50px", width: "50px", borderRadius: "50%"}}/></div>
                     <div className="d-flex flex-column h-100 w-100">
                         <div className="d-flex justify-content-between p-0 pt-1 h-100"><p
-                            className="pb-0 m-0 clipChannel"
+                            className="pb-0 m-0 clipChannel PNameForSearch"
                             style={{
                                 color: "#e3e3e3",
                                 fontWeight: "500",
@@ -62,6 +60,5 @@ const mapChannelItem = state => {
     }
 }
 
-const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannelsLastMSG(getLastMsg({id}), "getChannelLastMSG"))
 
-export default connect(mapChannelItem, {LSTMSG: dispatchGetLastMSG})(ChannelItem)
+export default connect(mapChannelItem,null)(ChannelItem)

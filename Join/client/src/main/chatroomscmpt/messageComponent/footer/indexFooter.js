@@ -9,7 +9,6 @@ import {actionPromiseChosenChannelMessages} from "../../../../redux/useChannelMe
 import Dropzone from "react-dropzone";
 import getGQL from "../../../../getGQL";
 import {actionPromiseChannels} from "../../../../redux/channels/actions";
-import {actionPromiseChannelsLastMSG} from "../../../../redux/channelsLastMSG/actions";
 import {getChannels} from "../../getChannels";
 import {getLastMsg} from "../../getLastMsg";
 
@@ -141,7 +140,6 @@ const dispatchMessagesByChannel = ({idChannel}) => async dispatch => {
 
 const dispatchGetChannels = () => async dispatch => dispatch(actionPromiseChannels(getChannels(), "getChannels"))
 
-// const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannelsLastMSG(getLastMsg({id}), "getChannelLastMSG"))
 const dispatchGetLastMSG = ({id}) => async dispatch => dispatch(actionPromiseChannels(getLastMsg({id}), "getChannelLastMSG"))
 
 
