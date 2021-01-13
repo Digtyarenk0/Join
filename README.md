@@ -6,7 +6,7 @@
 - GraphQL
 - Sequelize
 - WebSocket
-  #Technologies Client
+    #Technologies Client
 - React
 - React-Redux
 - Bootstrap
