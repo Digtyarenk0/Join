@@ -1,7 +1,8 @@
 # Join - live chat
 
 #Technologies
-     # Server
+
+          # Server
 - Node.js
 - Express
 - GraphQL
