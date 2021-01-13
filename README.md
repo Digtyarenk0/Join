@@ -1,12 +1,11 @@
 # Join - live chat
 
-#Technologies Server
+#Technologies
 - Node.js
 - Express
 - GraphQL
 - Sequelize
 - WebSocket
-    #Technologies Client
 - React
 - React-Redux
 - Bootstrap
