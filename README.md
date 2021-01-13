@@ -10,4 +10,4 @@ Technologies
      # Client
 - React
 - React-Redux
-- BootsTrap
+- Bootstrap
